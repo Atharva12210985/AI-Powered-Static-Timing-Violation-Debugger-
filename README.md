@@ -1,75 +1,57 @@
-# OpenFrame Overview
+# 🚀 Microwatt Challenge Proposal: GenAI-powered Timing Violation Debugger
 
-The OpenFrame Project provides an empty harness chip that differs significantly from the Caravel and Caravan designs. Unlike Caravel and Caravan, which include integrated SoCs and additional features, OpenFrame offers only the essential padframe, providing users with a clean slate for their custom designs.
+---
 
-<img width="256" alt="Screenshot 2024-06-24 at 12 53 39 PM" src="https://github.com/efabless/openframe_timer_example/assets/67271180/ff58b58b-b9c8-4d5e-b9bc-bf344355fa80">
+## 👨‍💻 Team
+- Atharva Awate  
+- Tushar Bhandari  
+- Yash Pahade  
 
-## Key Characteristics of OpenFrame
+---
 
-1. **Minimalist Design:** 
-   - No integrated SoC or additional circuitry.
-   - Only includes the padframe, a power-on-reset circuit, and a digital ROM containing the 32-bit project ID.
+## 📌 Project Description
+This project proposes a **Generative AI-powered debugger for Static Timing Analysis (STA) reports**.  
+The tool automates the tedious and complex process of analyzing timing violations in digital integrated circuits (ICs), a critical step in the physical design and verification flow.
 
-2. **Padframe Compatibility:**
-   - The padframe design and pin placements match those of the Caravel and Caravan chips, ensuring compatibility and ease of transition between designs.
-   - Pin types are identical, with power and ground pins positioned similarly and the same power domains available.
+The debugger leverages **[OpenSTA](https://github.com/The-OpenROAD-Project/OpenSTA)**, an open-source static timing analysis engine, to generate standard timing reports from synthesized designs (e.g., the **Microwatt CPU using SKY130 libraries**).  
+These reports are then parsed and analyzed using a **Large Language Model (LLM)**, running on a high-speed inference engine like **Groq**, to perform in-depth, quantitative analysis of each timing path.
 
-3. **Flexibility:**
-   - Provides full access to all GPIO controls.
-   - Maximizes the user project area, allowing for greater customization and integration of alternative SoCs or user-specific projects at the same hierarchy level.
+The system identifies the **root cause of violations** and provides **specific, actionable recommendations** for fixes, accelerating the timing closure process.
 
-4. **Simplified I/O:**
-   - Pins that previously connected to CPU functions (e.g., flash controller interface, SPI interface, UART) are now repurposed as general-purpose I/O, offering flexibility for various applications.
+---
 
-The OpenFrame harness is ideal for those looking to implement custom SoCs or integrate user projects without the constraints of an existing SoC.
+## ✨ Key Features
+- **AI-Powered Root Cause Analysis**  
+  Fine-tuned prompts + LLM to pinpoint exact causes of timing violations (e.g., excessive cell delay, high fanout, clock skew).
 
-## Features
+- **Actionable Fixes**  
+  Precise, tool-agnostic suggestions such as replacing cells, resizing gates, or adjusting the clock tree.
 
-1. 44 configurable GPIOs.
-2. User area of approximately 15mm².
-3. Supports digital, analog, or mixed-signal designs.
+- **Integration with OpenSTA**  
+  Automates STA runs with support for:
+  - Verilog netlists  
+  - Liberty (`.lib`) files (SKY130)  
+  - SDC constraints  
+  Generates `sta_report.txt` files for analysis.
 
-# openframe_timer_example
+- **Comprehensive Reporting**  
+  Outputs a detailed analysis in:
+  - Interactive **JSON** format  
+  - Professionally formatted **PDF** reports  
 
-This example implements a simple timer and connects it to the GPIOs.
+- **User-Friendly Interface**  
+  Built with **Streamlit** for a clean, intuitive, web-based dashboard to upload reports, configure options, and view results.
 
-## Installation and Setup
+---
 
-First, clone the repository:
+## 🎯 Relevance to the Microwatt Challenge
+This project directly addresses a major pain point in the physical design flow, **timing closure**, which is critical for CPU/microprocessor design such as the **Microwatt core**.
 
-```bash
-git clone https://github.com/efabless/openframe_timer_example.git
-cd openframe_timer_example
-```
+By combining **OpenSTA + AI-driven debugging**, the tool can:
+- Generate timing reports for **Microwatt synthesized with SKY130**  
+- Automatically analyze STA violations  
+- Suggest fixes to accelerate timing closure  
 
-Then, download all dependencies:
+This demonstrates the **value of open-source EDA + GenAI**, making chip design **more accessible, efficient, and intelligent**.
 
-```bash
-make setup
-```
-
-## Hardening the Design
-
-In this example, we will harden the timer. You will need to harden your own design similarly.
-
-```bash
-make user_proj_timer
-```
-
-Once you have hardened your design, integrate it into the OpenFrame wrapper:
-
-```bash
-make openframe_project_wrapper
-```
-
-## Important Notes
-
-1. **Connecting to Power:**
-   - Ensure your design is connected to power using the power pins on the wrapper.
-   - Use the `vccd1_connection` and `vssd1_connection` macros, which contain the necessary vias and nets for power connections.
-
-2. **Flattening the Design:**
-   - If you plan to flatten your design within the `openframe_project_wrapper`, do not buffer the analog pins using standard cells.
-
-3. **Running Custom Steps:**
-   - Execute the custom step in OpenLane that copies the power pins from the template DEF. If this step is skipped, the precheck will fail, and your design will not be powered.
+---
