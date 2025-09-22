@@ -1,24 +1,23 @@
 Microwatt Challenge Proposal: GenAI-powered Timing Violation Debugger
 =====================================================================
 
-The **GenAI-powered Timing Violation Debugger** is a project designed for the 
-**Microwatt Challenge Hackathon**. It addresses one of the most 
-time-consuming steps in the physical design flow: debugging and closing 
-timing violations in digital integrated circuits (ICs).  
+Overview
+--------
+The **GenAI-powered Timing Violation Debugger** is developed for the  
+**Microwatt Challenge Hackathon**.  
 
-The project integrates **OpenSTA** (an open-source static timing analysis tool) 
-with **Generative AI (LLM-based analysis on Groq inference engine)** to 
-automatically analyze STA reports, identify the root causes of violations, 
-and suggest actionable fixes.  
+It addresses one of the most time-consuming steps in the digital IC physical design flow:  
+debugging and closing static timing violations.  
 
-This README provides information about the project’s purpose, features, 
-and usage. Additional documentation may be added later.  
+By integrating **OpenSTA** (an open-source static timing analysis tool) with **Generative AI**  
+(LLM-based analysis accelerated on the Groq inference engine), the tool automates the  
+analysis of STA reports, identifies root causes of violations, and suggests actionable fixes.  
 
--------------------------------------------------------------------------------
+This README provides hackathon-focused documentation of the project’s purpose, features,  
+and submission details.
 
 Table of Contents
-=================
-
+-----------------
 - Module Overview
 - Designing
 - Building
@@ -26,102 +25,64 @@ Table of Contents
 - Contributing
 - License
 
--------------------------------------------------------------------------------
-
 Module Overview
-===============
+---------------
+The project demonstrates the combination of **open-source EDA tools** and **Generative AI**  
+to simplify timing closure for RISC-V CPUs such as the Microwatt core on **SKY130 PDK**.  
 
-The **GenAI-powered Timing Violation Debugger** combines open-source 
-EDA with generative AI to simplify **timing closure** for CPU designs 
-such as the **Microwatt RISC-V core** on SKY130.  
-
-Key components include:  
-
+Key Components:
+^^^^^^^^^^^^^^^
 - **OpenSTA** for generating STA reports from synthesized netlists.  
-- **Large Language Model (LLM)** for analyzing reports and pinpointing 
-  root causes of timing violations.  
+- **Large Language Model (LLM)** for analyzing timing reports and pinpointing root causes.  
 - **Streamlit Web Interface** for interactive debugging and visualization.  
 
-Supported inputs:  
+Supported Inputs:
+^^^^^^^^^^^^^^^^^
 - Verilog netlists  
-- Liberty (.lib) files (SKY130 PDK)  
+- Liberty (.lib) files from SKY130 PDK  
 - SDC timing constraints  
 
-Generated outputs:  
+Generated Outputs:
+^^^^^^^^^^^^^^^^^^
 - ``sta_report.txt`` (raw OpenSTA output)  
 - JSON analysis (interactive format)  
-- PDF analysis report (for documentation)  
-
--------------------------------------------------------------------------------
+- PDF analysis report (for documentation/sharing)  
 
 Designing
-=========
+---------
+The primary objective of the tool is to **reduce manual effort** in debugging STA violations.  
 
-The primary objective is to reduce **manual effort in STA debugging**.  
-
-The workflow is:  
-
-1. **Synthesize Microwatt design** with SKY130 libraries.  
-2. **Run OpenSTA** with Verilog, Liberty, and SDC inputs to produce timing reports.  
-3. **Upload report** into the Streamlit-based interface.  
+Workflow:
+^^^^^^^^^
+1. **Synthesize** the Microwatt design using SKY130 libraries.  
+2. **Run OpenSTA** with Verilog netlist, Liberty, and SDC constraints → generate reports.  
+3. **Upload STA report** into the Streamlit-based interface.  
 4. **AI-powered analysis**:  
    - Identifies issues such as large combinational delay, excessive fanout, or clock skew.  
-   - Suggests actionable fixes (cell replacement, gate sizing, clock adjustments).  
-5. **Export results** in JSON or PDF for review.  
+   - Suggests actionable fixes such as cell replacement, gate resizing, or clock adjustments.  
+5. **Export results** in JSON or PDF formats for review and documentation.  
 
-This design ensures that both experts and beginners can understand 
-and resolve timing issues more efficiently.  
-
--------------------------------------------------------------------------------
+This design ensures that both experienced engineers and beginners can understand  
+and resolve timing issues efficiently.
 
 Building
-========
-
-This project is a **Python-based web application**.  
-
-.. code-block:: bash
-
-   # Clone the repository
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
-
-   # Install dependencies
-   pip install -r requirements.txt
-
-   # Run the Streamlit application
-   streamlit run app/ui.py
-
-Dependencies:  
-- Python 3.8+  
-- Streamlit  
-- OpenSTA  
-- Report generation libraries (for JSON, PDF export)  
-
--------------------------------------------------------------------------------
-
-Submitting
-==========
-
+--------
 (To be completed)
 
--------------------------------------------------------------------------------
+Submitting
+----------
+(To be completed)
 
 Contributing
-============
+------------
+Contributions are welcome for extending the functionality and robustness of the tool.  
+Future enhancements may include:  
 
-Bug fixes and feature improvements are welcome.  
-Potential contributions may include:  
-
-- Support for additional STA tools.  
-- Enhancements to visualization of timing paths.  
-- Integration with OpenLane for full P&R + STA flow.  
-
--------------------------------------------------------------------------------
+- Support for multiple STA engines beyond OpenSTA.  
+- Visualization improvements for timing paths and violation hotspots.  
+- Integration with **OpenLane** for a complete open-source P&R + STA flow.  
 
 License
-=======
-
+-------
 This project is licensed under the **MIT License**.  
-See the ``LICENSE`` file for details.  
-
--------------------------------------------------------------------------------
+See the ``LICENSE`` file for details.
