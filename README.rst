@@ -46,26 +46,45 @@ Table of Contents
 
 Module Overview
 ---------------
-The project demonstrates the combination of **open-source EDA tools** and **Generative AI**  
-to simplify timing closure for RISC-V CPUs such as the Microwatt core on **SKY130 PDK**.  
+The **GenAI-powered Timing Violation Debugger** is composed of four main modules,  
+each addressing a specific part of the flow:  
 
-Key Components:
-^^^^^^^^^^^^^^^
-- **OpenSTA** for generating STA reports from synthesized netlists.  
-- **Large Language Model (LLM)** for analyzing timing reports and pinpointing root causes.  
-- **Streamlit Web Interface** for interactive debugging and visualization.  
+1. **OpenSTA Integration**  
+   - Accepts Verilog netlists, Liberty (.lib) files from SKY130 PDK, and SDC constraints.  
+   - Performs static timing analysis on the synthesized Microwatt design.  
+   - Generates standard reports (``sta_report.txt``) which serve as the raw input to the AI system.  
 
-Supported Inputs:
-^^^^^^^^^^^^^^^^^
-- Verilog netlists  
-- Liberty (.lib) files from SKY130 PDK  
-- SDC timing constraints  
+2. **AI-Powered Analysis (LLM on Groq Engine)**  
+   - Parses STA reports to extract critical timing paths and violation details.  
+   - Applies reasoning using a fine-tuned LLM to:  
+     * Detect the exact cause of each violation.  
+     * Differentiate between issues such as excessive combinational delay, unbalanced clock skew,  
+       or high fanout.  
+   - Outputs structured insights in JSON format for downstream use.  
 
-Generated Outputs:
-^^^^^^^^^^^^^^^^^^
-- ``sta_report.txt`` (raw OpenSTA output)  
-- JSON analysis (interactive format)  
-- PDF analysis report (for documentation/sharing)  
+3. **Recommendation Engine**  
+   - Converts AI insights into **actionable design fixes**, such as:  
+     * Replacing slow standard cells with faster equivalents.  
+     * Resizing gates to reduce propagation delay.  
+     * Buffer insertion or restructuring high-fanout nets.  
+     * Clock tree adjustments to reduce skew.  
+   - Provides suggestions in a **tool-agnostic manner**, so they can be applied with  
+     any P&R flow (including OpenLane).  
+
+4. **Streamlit User Interface & Reporting**  
+   - Web-based interactive dashboard.  
+   - Allows users to upload reports, view AI analysis, and explore critical paths visually.  
+   - Exports results in:  
+     * **JSON** → for automation pipelines.  
+     * **PDF** → for documentation and team review.  
+
+By combining these modules, the tool ensures:  
+- Faster debugging of timing violations.  
+- Reduced manual effort for engineers.  
+- Improved accessibility for students and beginners learning physical design flows.  
+
+This modular design highlights the hackathon’s goal: making open-source chip design flows  
+more practical and efficient through AI-driven innovation.
 
 Designing
 ---------
