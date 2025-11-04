@@ -33,7 +33,7 @@ The platform features a **Streamlit-based interface** for ease of use and genera
   Download complete results in both **JSON** and **PDF** formats for easy documentation and sharing.
 
 - **Support for Standard STA Formats**  
-  Compatible with industry-standard reports generated from tools like **Synopsys PrimeTime** and **OpenSTA**.
+  Compatible with industry-standard reports generated from tools like **OpenSTA**.
 
 - **Fast and Insightful**  
   Saves hours of manual debugging by providing immediate actionable insights and structured timing violation analysis.
@@ -58,15 +58,6 @@ The STA Debugger follows a simple 5-step workflow:
 
 5. **Export Reports**  
    Download full analysis reports in **JSON** or **PDF** format.
-
----
-
-## 🎯 Supported Formats
-The parser is designed to work with standard STA report formats from:
-
-- **OpenSTA**  
-- **Synopsys PrimeTime**  
-- **Cadence Tempus** (limited support)
 
 ---
 
