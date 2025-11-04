@@ -40,9 +40,10 @@ How It Works
 2. **Parse Report** — A custom ``STAParser`` extracts key timing information (start points, endpoints, logic chains, slack).  
 3. **AI Analysis** — Parsed data is processed by **Groq’s LLM** for quantitative reasoning and optimization suggestions.  
 4. **Review Results** — Insights are displayed in a Streamlit dashboard with expandable path-level views.  
-5. **Export Reports** — Download detailed results in **JSON** or **PDF**.
+5. **Export Reports** — Download detailed results in **JSON** or **PDF** formats.
 
---------------------
+Usage Instructions
+------------------
 1. **Get an API Key:**  
    Sign up at `Groq Console <https://console.groq.com/>`_ for free access.
 
