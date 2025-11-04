@@ -103,5 +103,5 @@ The parser is designed to work with standard STA report formats from:
 
 Clone the repository:
 ```bash
-git clone https://github.com/Atharva12210985/STA-debugger.git
-cd STA-debugger
+git clone https://github.com/Atharva12210985/AI-Powered-Static-Timing-Violation-Debugger-.git
+cd AI-Powered-Static-Timing-Violation-Debugger-
