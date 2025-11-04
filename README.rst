@@ -80,8 +80,8 @@ Installation and Setup
 **Installation**
 ::
 
-    git clone https://github.com/Atharva12210985/STA-debugger.git
-    cd STA-debugger
+    git clone https://github.com/Atharva12210985/AI-Powered-Static-Timing-Violation-Debugger-.git
+    cd AI-Powered-Static-Timing-Violation-Debugger-
     pip install -r requirements.txt
 
 **Set your Groq API Key:**
@@ -159,6 +159,8 @@ The final submission includes:
 
 For evaluation, please visit:  
 🌐 **Live Demo:** https://sta-debug-app.streamlit.app
+
+**GitHub Repository:** https://github.com/Atharva12210985/AI-Powered-Static-Timing-Violation-Debugger-
 
 License
 -------
