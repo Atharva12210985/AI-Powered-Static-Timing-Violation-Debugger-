@@ -105,11 +105,48 @@ and resolve timing issues efficiently.
 
 Building
 --------
-(To be completed)
+To run the project locally:
+
+1. Clone the repository:
+   ::
+       git clone https://github.com/Atharva12210985/AI-Powered-Static-Timing-Violation-Debugger-.git
+       cd AI-Powered-Static-Timing-Violation-Debugger-
+
+2. Create a virtual environment and install dependencies:
+   ::
+       python -m venv venv
+       source venv/bin/activate        # Linux/Mac
+       venv\Scripts\activate           # Windows
+       pip install -r requirements.txt
+
+3. Run the backend:
+   ::
+       cd backend_api
+       python main.py
+
+4. Launch the Streamlit frontend:
+   ::
+       cd ..
+       streamlit run app.py
+
+Alternatively, you can use the **hosted web version** directly:
+
+   🌐 **Live Demo:** https://sta-debug-app.streamlit.app/
 
 Submitting
 ----------
-(To be completed)
+This project was developed as part of the **Microwatt Challenge Hackathon**.  
+The final submission includes:
+
+- Complete source code for backend, frontend, and AI logic.  
+- Updated documentation (`README.md` and `README.rst`).  
+- Live hosted web app for demonstration.  
+- Example test reports and generated outputs in the `/samples` folder.  
+- Future work and improvement plans outlined in the README.  
+
+For evaluation, please visit:
+::
+   https://sta-debug-app.streamlit.app/
 
 Contributing
 ------------
@@ -119,8 +156,11 @@ Future enhancements may include:
 - Support for multiple STA engines beyond OpenSTA.  
 - Visualization improvements for timing paths and violation hotspots.  
 - Integration with **OpenLane** for a complete open-source P&R + STA flow.  
+- Cloud API for automated timing analysis at scale.  
 
 License
 -------
 This project is licensed under the **MIT License**.  
+
 See the ``LICENSE`` file for details.
+
