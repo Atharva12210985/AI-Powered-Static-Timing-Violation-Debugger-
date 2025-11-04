@@ -42,15 +42,6 @@ How It Works
 4. **Review Results** — Insights are displayed in a Streamlit dashboard with expandable path-level views.  
 5. **Export Reports** — Download detailed results in **JSON** or **PDF**.
 
-Supported Formats
------------------
-The parser is designed to support industry-standard STA report formats from:
-
-- **OpenSTA**
-- **Synopsys PrimeTime**
-- **Cadence Tempus** (limited support)
-
-How to Use This Tool
 --------------------
 1. **Get an API Key:**  
    Sign up at `Groq Console <https://console.groq.com/>`_ for free access.
