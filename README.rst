@@ -1,162 +1,164 @@
-Microwatt Challenge Proposal: GenAI-powered Timing Violation Debugger
-=====================================================================
+⚡ GenAI-Powered STA Debugger
+=============================
+
+AI-powered analysis for semiconductor timing closure
 
 Overview
 --------
-The **GenAI-powered Timing Violation Debugger** is a project designed for the  
-**Microwatt Challenge Hackathon**, focusing on improving the efficiency of the  
-physical design and verification flow for digital integrated circuits (ICs).  
+The **STA Debugger** is a web-based AI tool that automates the analysis of Static Timing Analysis (STA) reports, identifies timing violations, and provides expert-level recommendations to help engineers achieve faster timing closure.
 
-One of the most challenging and time-consuming tasks in the physical design cycle  
-is **Static Timing Analysis (STA)** and the subsequent **debugging of timing violations**.  
-Traditional STA tools like OpenSTA generate detailed reports of timing paths,  
-but analyzing these reports, identifying the true root causes of violations,  
-and deciding on corrective actions often require significant manual expertise  
-and effort. This can lead to **delays in timing closure**, especially in complex  
-designs such as CPU cores.  
+It simplifies one of the most time-consuming stages in chip design — debugging STA reports — by combining the analytical accuracy of open-source EDA tools like **OpenSTA** with the intelligence of **Generative AI (Groq API)**.
 
-The proposed tool integrates **OpenSTA** with **Generative AI** to automate this  
-debugging process. Using an LLM running on a high-speed inference engine  
-(such as **Groq**), the system parses STA reports and provides a **layered analysis**:  
+The platform features a **Streamlit-based interface** for ease of use and generates detailed reports in both **JSON** and **PDF** formats.
 
-- **Quantitative timing analysis** of each path.  
-- **Identification of root causes** such as excessive cell delay, long combinational logic chains,  
-  poor gate sizing, high fanout, or clock skew.  
-- **Actionable recommendations** that are tool-agnostic and can be directly applied  
-  during design iterations.  
+Team
+----
+- **Tushar Bhandari** — Machine Learning & Backend Development  
+- **Atharva Awate** — Frontend and System Integration  
+- **Yash Pahade** — Data Analysis & Report Generation  
 
-In addition, the project provides a **user-friendly web interface** built with  
-**Streamlit**, where designers can upload STA reports, configure analysis options,  
-and visualize results interactively. The tool also produces structured outputs  
-in **JSON** (for machine-readable analysis pipelines) and **PDF** (for documentation/sharing).  
-
-This project demonstrates how combining **open-source EDA tools** (OpenSTA, SKY130 PDK)  
-with **cutting-edge Generative AI** can make timing closure more **accessible, efficient,  
-and intelligent**. For the Microwatt core, this translates into a faster path  
-from synthesis to a timing-clean CPU implementation.
-
-Table of Contents
------------------
-- Module Overview
-- Designing
-- Building
-- Submitting
-- Contributing
-- License
-
-Module Overview
----------------
-The **GenAI-powered Timing Violation Debugger** is composed of four main modules,  
-each addressing a specific part of the flow:  
-
-1. **OpenSTA Integration**  
-   - Accepts Verilog netlists, Liberty (.lib) files from SKY130 PDK, and SDC constraints.  
-   - Performs static timing analysis on the synthesized Microwatt design.  
-   - Generates standard reports (``sta_report.txt``) which serve as the raw input to the AI system.  
-
-2. **AI-Powered Analysis (LLM on Groq Engine)**  
-   - Parses STA reports to extract critical timing paths and violation details.  
-   - Applies reasoning using a fine-tuned LLM to:  
-     * Detect the exact cause of each violation.  
-     * Differentiate between issues such as excessive combinational delay, unbalanced clock skew,  
-       or high fanout.  
-   - Outputs structured insights in JSON format for downstream use.  
-
-3. **Recommendation Engine**  
-   - Converts AI insights into **actionable design fixes**, such as:  
-     * Replacing slow standard cells with faster equivalents.  
-     * Resizing gates to reduce propagation delay.  
-     * Buffer insertion or restructuring high-fanout nets.  
-     * Clock tree adjustments to reduce skew.  
-   - Provides suggestions in a **tool-agnostic manner**, so they can be applied with  
-     any P&R flow (including OpenLane).  
-
-4. **Streamlit User Interface & Reporting**  
-   - Web-based interactive dashboard.  
-   - Allows users to upload reports, view AI analysis, and explore critical paths visually.  
-   - Exports results in:  
-     * **JSON** → for automation pipelines.  
-     * **PDF** → for documentation and team review.  
-
-By combining these modules, the tool ensures:  
-- Faster debugging of timing violations.  
-- Reduced manual effort for engineers.  
-- Improved accessibility for students and beginners learning physical design flows.  
-
-This modular design highlights the hackathon’s goal: making open-source chip design flows  
-more practical and efficient through AI-driven innovation.
-
-Designing
----------
-The primary objective of the tool is to **reduce manual effort** in debugging STA violations.  
-
-Workflow:
-^^^^^^^^^
-1. **Synthesize** the Microwatt design using SKY130 libraries.  
-2. **Run OpenSTA** with Verilog netlist, Liberty, and SDC constraints → generate reports.  
-3. **Upload STA report** into the Streamlit-based interface.  
-4. **AI-powered analysis**:  
-   - Identifies issues such as large combinational delay, excessive fanout, or clock skew.  
-   - Suggests actionable fixes such as cell replacement, gate resizing, or clock adjustments.  
-5. **Export results** in JSON or PDF formats for review and documentation.  
-
-This design ensures that both experienced engineers and beginners can understand  
-and resolve timing issues efficiently.
-
-Building
+Features
 --------
-To run the project locally:
+- **AI-Powered Analysis:**  
+  Provides in-depth reasoning, root causes, severity level, and design-level fixes for each timing violation using **Groq’s LLM** (``llama-3.3-70b-versatile``).
 
-1. Clone the repository:
-   ::
-       git clone https://github.com/Atharva12210985/AI-Powered-Static-Timing-Violation-Debugger-.git
-       cd AI-Powered-Static-Timing-Violation-Debugger-
+- **Interactive Web Interface:**  
+  A clean and intuitive **Streamlit** interface for uploading reports, configuring analysis options, and reviewing AI-generated results.
 
-2. Create a virtual environment and install dependencies:
-   ::
-       python -m venv venv
-       source venv/bin/activate        # Linux/Mac
-       venv\Scripts\activate           # Windows
-       pip install -r requirements.txt
+- **Report Generation:**  
+  Download complete analysis results in **JSON** and **PDF** formats for documentation and sharing.
 
-3. Run the backend:
-   ::
-       cd backend_api
-       python main.py
+- **Support for Standard STA Formats:**  
+  Compatible with STA reports from **Synopsys PrimeTime** and **OpenSTA**.
 
-4. Launch the Streamlit frontend:
-   ::
-       cd ..
-       streamlit run app.py
+- **Fast and Insightful:**  
+  Reduces debugging time from hours to minutes with detailed AI reasoning and actionable insights.
 
-Alternatively, you can use the **hosted web version** directly:
+How It Works
+------------
+1. **Upload Report** — Upload an STA timing report (``.txt``, ``.rpt``, or ``.log``).  
+2. **Parse Report** — A custom ``STAParser`` extracts key timing information (start points, endpoints, logic chains, slack).  
+3. **AI Analysis** — Parsed data is processed by **Groq’s LLM** for quantitative reasoning and optimization suggestions.  
+4. **Review Results** — Insights are displayed in a Streamlit dashboard with expandable path-level views.  
+5. **Export Reports** — Download detailed results in **JSON** or **PDF**.
 
-   🌐 **Live Demo:** https://sta-debug-app.streamlit.app/
+Supported Formats
+-----------------
+The parser is designed to support industry-standard STA report formats from:
+
+- **OpenSTA**
+- **Synopsys PrimeTime**
+- **Cadence Tempus** (limited support)
+
+How to Use This Tool
+--------------------
+1. **Get an API Key:**  
+   Sign up at `Groq Console <https://console.groq.com/>`_ for free access.
+
+2. **Upload Report:**  
+   Upload your STA timing report (``.txt``, ``.rpt``, ``.log``).
+
+3. **Configure Options:**  
+   Choose analysis options in the sidebar.
+
+4. **Analyze:**  
+   Click **Run Analysis** to start AI-powered debugging.
+
+5. **Review Results:**  
+   Examine detailed AI insights and recommendations.
+
+6. **Export:**  
+   Download comprehensive reports in **JSON** or **PDF** formats.
+
+Installation and Setup
+----------------------
+**Prerequisites**
+- Python 3.8+  
+- Groq API Key  
+- Internet connection for Streamlit and API inference
+
+**Installation**
+::
+
+    git clone https://github.com/Atharva12210985/STA-debugger.git
+    cd STA-debugger
+    pip install -r requirements.txt
+
+**Set your Groq API Key:**
+Create a ``.env`` file:
+::
+
+    GROQ_API_KEY="your_api_key_here"
+
+Run the Application
+-------------------
+Launch the Streamlit UI:
+::
+
+    streamlit run app/ui.py
+
+Once running, open your browser to the Streamlit local URL displayed in the terminal.
+
+Alternatively, access the hosted version directly:  
+🌐 **Live Demo:** https://sta-debug-app.streamlit.app
+
+System Architecture
+-------------------
+A visual representation of the complete system workflow has been provided as an image in the **GitHub project folder**.  
+It illustrates the process from **OpenSTA Report Generation → AI-based Analysis → Streamlit Visualization and Reporting**.
+
+Codebase Overview
+-----------------
+- **app/ui.py:** Streamlit interface handling user inputs and displaying results.  
+- **app/utils.py:** Report parsing (``STAParser``) and PDF report generation.  
+- **app/inference.py:** AI model logic and analysis using Groq API.  
+- **app/models.py:** Pydantic data models for structured path and result representation.  
+- **app/constants.py:** Prompt templates defining the AI reasoning structure and examples.
+
+Demo Video
+----------
+We have uploaded a **demo video** in the GitHub project folder demonstrating the full functionality of the tool.
+
+The video showcases:
+- Uploading STA reports  
+- Running AI-based analysis  
+- Viewing violation causes and recommendations  
+- Exporting results as JSON/PDF  
+
+Example Workflow Summary
+------------------------
++------+-------------------------+-------------------------+--------------------+
+| Step | Input                   | Process                 | Output             |
++======+=========================+=========================+====================+
+| 1    | STA Report (``.txt``)   | Parsed by ``STAParser`` | Structured data    |
++------+-------------------------+-------------------------+--------------------+
+| 2    | Parsed paths            | Sent to Groq API        | AI insights        |
++------+-------------------------+-------------------------+--------------------+
+| 3    | AI response             | Rendered on UI          | Interactive output |
++------+-------------------------+-------------------------+--------------------+
+| 4    | User export             | JSON/PDF generator      | Downloadable file  |
++------+-------------------------+-------------------------+--------------------+
+
+Future Enhancements
+-------------------
+- Integration with **OpenLane** for complete P&R + STA flow  
+- **Multi-corner, Multi-mode (MCMM)** STA support  
+- Domain-specific fine-tuned AI model for timing data  
+- Cloud-hosted platform with user authentication and saved analysis history  
 
 Submitting
 ----------
 This project was developed as part of the **Microwatt Challenge Hackathon**.  
 The final submission includes:
 
-- Complete source code for backend, frontend, and AI logic.  
-- Updated documentation (`README.md` and `README.rst`).  
-- Live hosted web app for demonstration.  
-- Example test reports and generated outputs in the `/samples` folder.  
-- Future work and improvement plans outlined in the README.  
+- Complete source code for backend, frontend, and AI logic  
+- Updated documentation (``README.md`` and ``README.rst``)  
+- Hosted live web app for demonstration  
+- Example STA reports and output files in the ``/samples/`` folder  
+- Uploaded demo video in the GitHub project folder  
 
-For evaluation, please visit:
-::
-   https://sta-debug-app.streamlit.app/
-
-Contributing
-------------
-Contributions are welcome for extending the functionality and robustness of the tool.  
-Future enhancements may include:  
-
-- Support for multiple STA engines beyond OpenSTA.  
-- Visualization improvements for timing paths and violation hotspots.  
-- Integration with **OpenLane** for a complete open-source P&R + STA flow.  
-- Cloud API for automated timing analysis at scale.  
+For evaluation, please visit:  
+🌐 **Live Demo:** https://sta-debug-app.streamlit.app
 
 License
 -------
@@ -164,3 +166,6 @@ This project is licensed under the **MIT License**.
 
 See the ``LICENSE`` file for details.
 
+---
+
+*Accelerating semiconductor design with AI — making STA debugging faster, smarter, and more accessible.*
